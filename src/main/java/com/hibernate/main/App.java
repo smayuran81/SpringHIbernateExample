@@ -15,11 +15,5 @@ public class App {
     public static void main(String[] args) throws SQLException {
         ApplicationContext context = new AnnotationConfigApplicationContext(ParentConfig.class);
         DataSource dataSource = (DataSource) context.getBean("hsqldbDataSource");
-        if(dataSource.getConnection().isReadOnly()) {
-            System.out.println("testConnection");
-        }
-        System.out.println(dataSource.toString());
-
-
     }
 }
