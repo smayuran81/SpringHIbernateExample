@@ -35,7 +35,7 @@ public class PersistenceConfig {
    private final Properties hibernateProperties() {
 
        final Properties hibernateProperties = new Properties();
-       hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+       //hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 
        hibernateProperties.setProperty("hibernate.show_sql", "true");
@@ -53,7 +53,7 @@ public class PersistenceConfig {
     public LocalSessionFactoryBean sessionFactoryBean() {
         final LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(hsqlDbDataSource);
-        sessionFactoryBean.setPackagesToScan(new String[] { "com.hibernate.persistence.model" });
+        sessionFactoryBean.setPackagesToScan(new String[] { "com.hibernate.persistence" });
         sessionFactoryBean.setHibernateProperties(hibernateProperties());
         return sessionFactoryBean;
     }

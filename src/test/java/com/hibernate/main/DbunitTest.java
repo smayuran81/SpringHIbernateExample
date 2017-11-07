@@ -1,9 +1,15 @@
 package com.hibernate.main;
 
 import com.hibernate.config.TestDataSourceConfig;
+import com.hibernate.persistence.entity.City;
+import com.hibernate.persistence.entity.Country;
+import com.hibernate.persistence.entity.Customer;
+import com.hibernate.persistence.service.PersistentService;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +21,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 /**
  * Created by msivasub on 26/10/2017.
@@ -28,25 +35,44 @@ public class DbunitTest {
 
 
 
+    @Autowired
+    PersistentService persistentService;
+
+    @BeforeClass
+    public static void setUpClass() {
+
+
+    }
+
+
     @Before
     public void  setup() throws SQLException {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(TestDataSourceConfig.class);
-        DataSource dataSource = (DataSource) context.getBean("hsqldbDataSource_test");
-        Connection conn = dataSource.getConnection();
-        if(!conn.isReadOnly()) {
-            System.out.println("Connection Successfull");
-            ResultSet rs=conn.getMetaData().getTableTypes();
-            System.out.println("Connection Successfull");
-        }
-        else{
-            System.out.println("Connection");
-        }
 
     }
 
     @Test
-    public void test() {
+    public void testCountry() throws InterruptedException {
+
+
+
+        Country country = new Country();
+        country.setCountry("myCountry");
+        City city1 = new City();
+        city1.setCity("mycity");
+        country.setCityList(Arrays.asList(city1));
+        persistentService.saveCountry(country);
+        System.out.println(country);
+        Thread.sleep(20000000000L);
+
+
+    }
+
+    @Test
+    public void testCustomer() {
+
+        Customer customer = new Customer();
 
     }
 }
