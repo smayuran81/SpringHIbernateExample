@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Created by msivasub on 31/10/2017.
+ * By Having joinColumn it avoids the intermediate table. This mapping inserts first and then updates it.
+ * city and country - i have unidirectional one to many mapping
  */
 
 @Entity
